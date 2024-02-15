@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.23.0
+
+-   Reset TomSelect when updating url attribute #1505
+
 ## 2.22.0
 
 -   Take `labelField` TomSelect option into account #2382
