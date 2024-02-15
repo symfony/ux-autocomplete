@@ -128,6 +128,10 @@ export default class extends Controller {
         }
     }
 
+    urlValueChanged() {
+        this.resetTomSelect();
+    }
+
     #getCommonConfig(): Partial<TomSettings> {
         const plugins: TPluginHash = {};
 
@@ -391,8 +395,6 @@ export default class extends Controller {
             this.element.innerHTML = currentHtml;
             this.initializeTomSelect();
             this.tomSelect.setValue(currentValue);
-
-            this.startMutationObserver();
         }
     }
 
