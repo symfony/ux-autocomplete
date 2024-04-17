@@ -464,6 +464,11 @@ and tag this service with ``ux.entity_autocompleter``, including an ``alias`` op
             return $entity->getId();
         }
 
+        public function getGroupBy(): mixed
+        {
+            return null;
+        }
+
         public function isGranted(Security $security): bool
         {
             // see the "security" option for details
