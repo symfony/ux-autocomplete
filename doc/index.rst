@@ -272,6 +272,7 @@ to the options above, you can also pass:
 ``preload`` (default: ``focus``)
     Set to ``focus`` to call the ``load`` function when control receives focus.
     Set to ``true`` to call the ``load`` upon control initialization (with an empty search).
+    Set to ``false`` not to call the ``load`` function when control receives focus.
 
 ``extra_options`` (default ``[]``)
     Allow you to pass extra options for Ajax-based autocomplete fields.
