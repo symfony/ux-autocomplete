@@ -264,10 +264,10 @@ _default_1_instances = new WeakSet(), _default_1_getCommonConfig = function _def
             const optionElement = document.createElement('option');
             optionElement.value = value;
             optionElement.text = data[this.tomSelect.settings.labelField];
-            const optionOrder = data['$order'];
+            const optionOrder = data.$order;
             let orderedOption = null;
             for (const [, tomSelectOption] of Object.entries(this.tomSelect.options)) {
-                if (tomSelectOption['$order'] === optionOrder) {
+                if (tomSelectOption.$order === optionOrder) {
                     orderedOption = parentElement.querySelector(`:scope > option[value="${tomSelectOption[this.tomSelect.settings.valueField]}"]`);
                     break;
                 }
