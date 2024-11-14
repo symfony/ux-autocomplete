@@ -40,12 +40,16 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[Orm\OneToMany(targetEntity: Ingredient::class, mappedBy: 'product')]
+    #[ORM\OneToMany(targetEntity: Ingredient::class, mappedBy: 'product')]
     private Collection $ingredients;
+
+    #[ORM\ManyToMany(targetEntity: ProductTag::class, mappedBy: 'products')]
+    private Collection $tags;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,6 +142,33 @@ class Product
             if ($ingredient->getProduct() === $this) {
                 $ingredient->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductTag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(ProductTag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(ProductTag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeProduct($this);
         }
 
         return $this;
