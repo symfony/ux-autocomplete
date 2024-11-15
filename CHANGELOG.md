@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.22.0
+
+-   Take `labelField` TomSelect option into account #2382
+
 ## 2.21.0
 
 -   Translate the `option_create` option from TomSelect with remote data setup #2279

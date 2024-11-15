@@ -261,22 +261,26 @@ _default_1_instances = new WeakSet(), _default_1_getCommonConfig = function _def
     });
     return __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_createTomSelect).call(this, config);
 }, _default_1_createAutocompleteWithHtmlContents = function _default_1_createAutocompleteWithHtmlContents() {
-    const config = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_mergeObjects).call(this, __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_getCommonConfig).call(this), {
+    const commonConfig = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_getCommonConfig).call(this);
+    const labelField = commonConfig.labelField ?? 'text';
+    const config = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_mergeObjects).call(this, commonConfig, {
         maxOptions: this.getMaxOptions(),
         score: (search) => {
             const scoringFunction = this.tomSelect.getScoreFunction(search);
             return (item) => {
-                return scoringFunction({ ...item, text: __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_stripTags).call(this, item.text) });
+                return scoringFunction({ ...item, text: __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_stripTags).call(this, item[labelField]) });
             };
         },
         render: {
-            item: (item) => `<div>${item.text}</div>`,
-            option: (item) => `<div>${item.text}</div>`,
+            item: (item) => `<div>${item[labelField]}</div>`,
+            option: (item) => `<div>${item[labelField]}</div>`,
         },
     });
     return __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_createTomSelect).call(this, config);
 }, _default_1_createAutocompleteWithRemoteData = function _default_1_createAutocompleteWithRemoteData(autocompleteEndpointUrl, minCharacterLength) {
-    const config = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_mergeObjects).call(this, __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_getCommonConfig).call(this), {
+    const commonConfig = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_getCommonConfig).call(this);
+    const labelField = commonConfig.labelField ?? 'text';
+    const config = __classPrivateFieldGet(this, _default_1_instances, "m", _default_1_mergeObjects).call(this, commonConfig, {
         firstUrl: (query) => {
             const separator = autocompleteEndpointUrl.includes('?') ? '&' : '?';
             return `${autocompleteEndpointUrl}${separator}query=${encodeURIComponent(query)}`;
@@ -306,8 +310,8 @@ _default_1_instances = new WeakSet(), _default_1_getCommonConfig = function _def
         optgroupField: 'group_by',
         score: (search) => (item) => 1,
         render: {
-            option: (item) => `<div>${item.text}</div>`,
-            item: (item) => `<div>${item.text}</div>`,
+            option: (item) => `<div>${item[labelField]}</div>`,
+            item: (item) => `<div>${item[labelField]}</div>`,
             loading_more: () => {
                 return `<div class="loading-more-results">${this.loadingMoreTextValue}</div>`;
             },

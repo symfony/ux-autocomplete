@@ -177,18 +177,21 @@ export default class extends Controller {
     }
 
     #createAutocompleteWithHtmlContents(): TomSelect {
-        const config = this.#mergeObjects(this.#getCommonConfig(), {
+        const commonConfig = this.#getCommonConfig();
+        const labelField = commonConfig.labelField ?? 'text';
+
+        const config = this.#mergeObjects(commonConfig, {
             maxOptions: this.getMaxOptions(),
             score: (search: string) => {
                 const scoringFunction = this.tomSelect.getScoreFunction(search);
                 return (item: any) => {
                     // strip HTML tags from each option's searchable text
-                    return scoringFunction({ ...item, text: this.#stripTags(item.text) });
+                    return scoringFunction({ ...item, text: this.#stripTags(item[labelField]) });
                 };
             },
             render: {
-                item: (item: any) => `<div>${item.text}</div>`,
-                option: (item: any) => `<div>${item.text}</div>`,
+                item: (item: any) => `<div>${item[labelField]}</div>`,
+                option: (item: any) => `<div>${item[labelField]}</div>`,
             },
         });
 
@@ -196,7 +199,10 @@ export default class extends Controller {
     }
 
     #createAutocompleteWithRemoteData(autocompleteEndpointUrl: string, minCharacterLength: number | null): TomSelect {
-        const config: RecursivePartial<TomSettings> = this.#mergeObjects(this.#getCommonConfig(), {
+        const commonConfig = this.#getCommonConfig();
+        const labelField = commonConfig.labelField ?? 'text';
+
+        const config: RecursivePartial<TomSettings> = this.#mergeObjects(commonConfig, {
             firstUrl: (query: string) => {
                 const separator = autocompleteEndpointUrl.includes('?') ? '&' : '?';
 
@@ -241,8 +247,8 @@ export default class extends Controller {
             // avoid extra filtering after results are returned
             score: (search: string) => (item: any) => 1,
             render: {
-                option: (item: any) => `<div>${item.text}</div>`,
-                item: (item: any) => `<div>${item.text}</div>`,
+                option: (item: any) => `<div>${item[labelField]}</div>`,
+                item: (item: any) => `<div>${item[labelField]}</div>`,
                 loading_more: (): string => {
                     return `<div class="loading-more-results">${this.loadingMoreTextValue}</div>`;
                 },
