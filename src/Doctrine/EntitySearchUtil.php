@@ -47,6 +47,7 @@ class EntitySearchUtil
         ];
 
         $entitiesAlreadyJoined = [];
+        $aliasAlreadyUsed = [];
         $searchableProperties = empty($searchableProperties) ? $entityMetadata->getAllPropertyNames() : $searchableProperties;
         $expressions = [];
         foreach ($searchableProperties as $propertyName) {
@@ -68,10 +69,18 @@ class EntitySearchUtil
                     $associatedEntityAlias = SearchEscaper::escapeDqlAlias($associatedEntityName);
                     $associatedPropertyName = $associatedProperties[$i + 1];
 
-                    if (!\in_array($associatedEntityName, $entitiesAlreadyJoined, true)) {
+                    $associatedParentName = null;
+                    if (\array_key_exists($i - 1, $associatedProperties) && $queryBuilder->getRootAliases()[0] !== $associatedProperties[$i - 1]) {
+                        $associatedParentName = $associatedProperties[$i - 1];
+                    }
+
+                    $associatedEntityAlias = $associatedParentName ? $associatedParentName.'_'.$associatedEntityAlias : $associatedEntityAlias;
+
+                    if (!\in_array($associatedEntityName, $entitiesAlreadyJoined, true) || !\in_array($associatedEntityAlias, $aliasAlreadyUsed, true)) {
                         $parentEntityName = 0 === $i ? $queryBuilder->getRootAliases()[0] : $associatedProperties[$i - 1];
                         $queryBuilder->leftJoin($parentEntityName.'.'.$associatedEntityName, $associatedEntityAlias);
                         $entitiesAlreadyJoined[] = $associatedEntityName;
+                        $aliasAlreadyUsed[] = $associatedEntityAlias;
                     }
 
                     if ($i < $numAssociatedProperties - 2) {

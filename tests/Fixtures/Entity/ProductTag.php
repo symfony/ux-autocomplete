@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity()]
-class Category
+class ProductTag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -26,19 +26,13 @@ class Category
     #[ORM\Column()]
     private ?string $name = null;
 
-    #[ORM\Column()]
-    private ?string $code = null;
-
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'tags')]
+    #[ORM\JoinTable(name: 'product_tag')]
     private Collection $products;
-
-    #[ORM\ManyToMany(targetEntity: CategoryTag::class, mappedBy: 'categories')]
-    private Collection $tags;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,18 +52,6 @@ class Category
         return $this;
     }
 
-    public function setCode(string $code): self
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
     /**
      * @return Collection<int, Product>
      */
@@ -82,7 +64,6 @@ class Category
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategory($this);
         }
 
         return $this;
@@ -90,43 +71,8 @@ class Category
 
     public function removeProduct(Product $product): self
     {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        }
+        $this->products->removeElement($product);
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, CategoryTag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(CategoryTag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(CategoryTag $tag): self
-    {
-        $this->tags->removeElement($tag);
-
-        return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->getName();
     }
 }
