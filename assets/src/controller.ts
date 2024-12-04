@@ -3,10 +3,10 @@ import TomSelect from 'tom-select';
 import type { TPluginHash } from 'tom-select/dist/types/contrib/microplugin';
 import type {
     RecursivePartial,
-    TomSettings,
-    TomTemplates,
     TomLoadCallback,
     TomOption,
+    TomSettings,
+    TomTemplates,
 } from 'tom-select/dist/types/types';
 import type { escape_html } from 'tom-select/dist/types/utils';
 

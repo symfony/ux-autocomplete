@@ -9,14 +9,14 @@
 
 import { Application } from '@hotwired/stimulus';
 import { getByTestId, waitFor } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
+import type TomSelect from 'tom-select';
+import { vi } from 'vitest';
+import createFetchMock from 'vitest-fetch-mock';
 import AutocompleteController, {
     type AutocompleteConnectOptions,
     type AutocompletePreConnectOptions,
 } from '../src/controller';
-import userEvent from '@testing-library/user-event';
-import type TomSelect from 'tom-select';
-import createFetchMock from 'vitest-fetch-mock';
-import { vi } from 'vitest';
 
 const shortDelay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
