@@ -17,6 +17,8 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 /**
  * Loads choices on demand only.
+ *
+ * @deprecated since Autocomplete 2.23 and will be removed in 3.0, use `Symfony\Component\Form\ChoiceList\Loader\LazyChoiceLoader` instead.
  */
 class ExtraLazyChoiceLoader implements ChoiceLoaderInterface
 {
