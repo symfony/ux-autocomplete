@@ -13,6 +13,7 @@ namespace Symfony\UX\Autocomplete\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\LazyChoiceLoader;
 use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -40,6 +41,10 @@ final class BaseEntityAutocompleteType extends AbstractType
         $choiceLoader = static function (Options $options, $loader) {
             if (null === $loader) {
                 return null;
+            }
+
+            if (class_exists(LazyChoiceLoader::class)) {
+                return new LazyChoiceLoader($loader);
             }
 
             return new ExtraLazyChoiceLoader($loader);

@@ -2,6 +2,7 @@
 
 ## 2.23.0
 
+-   Deprecate `ExtraLazyChoiceLoader` in favor of `Symfony\Component\Form\ChoiceList\Loader\LazyChoiceLoader`
 -   Reset TomSelect when updating url attribute #1505
 
 ## 2.22.0
