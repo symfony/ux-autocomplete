@@ -250,7 +250,7 @@ to the options above, you can also pass:
 
 ``filter_query`` (default: ``null``)
     If you want to completely control the query made for the "search results",
-    use this option. This is incompatible with ``searchable_fields``::
+    use this option. This is incompatible with ``searchable_fields`` and ``max_results``::
 
         [
             'filter_query' => function(QueryBuilder $qb, string $query, EntityRepository $repository) {
