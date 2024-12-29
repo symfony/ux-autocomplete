@@ -316,7 +316,7 @@ the consequent renders, the default ``query_builder`` will be used::
                 ->add('food', FoodAutocompleteField::class, [
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('o')
-                            ->andWhere($qb->expr()->notIn('o.id', [$currentFoodId]));
+                            ->andWhere($er->createQueryBuilder()->expr()->notIn('o.id', [$currentFoodId]));
                     };
                 ])
             ;
