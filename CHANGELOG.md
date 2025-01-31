@@ -4,6 +4,7 @@
 
 -   Deprecate `ExtraLazyChoiceLoader` in favor of `Symfony\Component\Form\ChoiceList\Loader\LazyChoiceLoader`
 -   Reset TomSelect when updating url attribute #1505
+-   Add `getAttributes()` method to define additional attributes for autocomplete results #2541
 
 ## 2.22.0
 

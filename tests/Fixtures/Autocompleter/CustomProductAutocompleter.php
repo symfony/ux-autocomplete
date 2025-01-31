@@ -19,6 +19,9 @@ use Symfony\UX\Autocomplete\Doctrine\EntitySearchUtil;
 use Symfony\UX\Autocomplete\EntityAutocompleterInterface;
 use Symfony\UX\Autocomplete\Tests\Fixtures\Entity\Product;
 
+/**
+ * @implements EntityAutocompleterInterface<Product>
+ */
 class CustomProductAutocompleter implements EntityAutocompleterInterface
 {
     public function __construct(
@@ -56,6 +59,11 @@ class CustomProductAutocompleter implements EntityAutocompleterInterface
     public function getValue(object $entity): mixed
     {
         return $entity->getId();
+    }
+
+    public function getAttributes(object $entity): array
+    {
+        return [];
     }
 
     public function isGranted(Security $security): bool
