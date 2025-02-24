@@ -76,7 +76,11 @@ final class EntityAutocompleteController
             return [];
         }
 
-        $extraOptions = $this->getDecodedExtraOptions($request->query->getString(self::EXTRA_OPTIONS));
+        try {
+            $extraOptions = $this->getDecodedExtraOptions($request->query->getString(self::EXTRA_OPTIONS));
+        } catch (\JsonException $e) {
+            throw new BadRequestHttpException('The extra options cannot be parsed.', $e);
+        }
 
         if (!\array_key_exists(AutocompleteChoiceTypeExtension::CHECKSUM_KEY, $extraOptions)) {
             throw new BadRequestHttpException('The extra options are missing the checksum.');
