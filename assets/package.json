@@ -7,7 +7,7 @@
         "symfony-ux"
     ],
     "homepage": "https://ux.symfony.com/autocomplete",
-    "repository": "https://github.com/symfony/ux-autocomplete/tree/2.x",
+    "repository": "https://github.com/symfony/ux-autocomplete",
     "type": "module",
     "files": [
         "dist"
