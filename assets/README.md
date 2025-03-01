@@ -2,7 +2,9 @@
 
 Javascript-powered auto-completion functionality for your Symfony forms!
 
-**This package can't be used on its own, and requires the PHP package [symfony/ux-autocomplete](https://github.com/symfony/ux/tree/2.x/src/Autocomplete).**
+**ℹ️ Direct installation of this package is for advanced users only.** We strongly recommend installing it through the PHP package [symfony/ux-autocomplete](https://packagist.org/packages/symfony/ux-autocomplete) in a Symfony application with Flex enabled.
+
+If you still want to install this package directly, **make sure its version exactly matches [symfony/ux-autocomplete](https://packagist.org/packages/symfony/ux-autocomplete) PHP package version.**
 
 ## Resources
 
