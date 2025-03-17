@@ -1,7 +1,7 @@
 Autocomplete <select>
 =====================
 
-Transform your ``EntityType``, ``ChoiceType`` or *any* ``<select>`` element
+Transform your ``EntityType``, ``ChoiceType``, ``EnumType`` or *any* ``<select>`` element
 into an Ajax-powered autocomplete smart UI control (leveraging `Tom Select`_):
 
 .. image:: ux-autocomplete-animation.gif
