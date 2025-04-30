@@ -418,10 +418,6 @@ likely need to create your own :ref:`custom autocomplete endpoint <custom-autoco
 Customizing the AJAX URL/Route
 ------------------------------
 
-.. versionadded:: 2.7
-
-    The ability to specify the route was added in Twig Components 2.7.
-
 The default route for the Ajax calls used by the Autocomplete component is ``/autocomplete/{alias}/``.
 Sometimes it may be useful to customize this URL - e.g. so that the URL lives
 under a specific firewall.
