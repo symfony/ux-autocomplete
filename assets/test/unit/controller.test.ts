@@ -16,7 +16,7 @@ import createFetchMock from 'vitest-fetch-mock';
 import AutocompleteController, {
     type AutocompleteConnectOptions,
     type AutocompletePreConnectOptions,
-} from '../src/controller';
+} from '../../src/controller';
 
 const shortDelay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
